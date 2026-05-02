@@ -1,43 +1,44 @@
 # Quantum Inspired Cipher
 
-Un piccolo algoritmo di crittografia in Python ispirato al quantum computing.
+A small educational Python cipher inspired by quantum computing.
 
-L'idea e didattica: usa una chiave, genera una sequenza pseudo-casuale di
-"basi di misura", mescola le posizioni dei byte e applica una maschera che
-ricorda una scelta fra basi computazionali e basi ruotate.
+The idea is educational: it uses a secret key, generates a pseudo-random
+sequence of "measurement bases", shuffles byte positions, and applies a mask
+that resembles a choice between computational and rotated bases.
 
-Non e crittografia professionale e non deve proteggere dati reali. Per quello
-servono librerie verificate come `cryptography`, AES-GCM o ChaCha20-Poly1305.
+This is not professional cryptography and should not be used to protect real
+data. For that, use audited libraries and standards such as `cryptography`,
+AES-GCM, or ChaCha20-Poly1305.
 
-## Uso
-
-```bash
-python3 quantum_cipher.py encrypt "Messaggio segreto" --key "la-mia-chiave"
-```
-
-Il comando stampa un token cifrato. Per decifrarlo:
+## Usage
 
 ```bash
-python3 quantum_cipher.py decrypt "TOKEN" --key "la-mia-chiave"
+python3 quantum_cipher.py encrypt "Secret message" --key "my-secret-key"
 ```
 
-## Cosa c'entra il quantum computing
+The command prints an encrypted token. To decrypt it:
 
-- **Qubit simulati**: la maschera nasce da flussi chiamati `raw-qubits` e
-  `phase-qubits`.
-- **Basi di misura**: ogni bit della maschera viene scelto da una base
-  pseudo-casuale, simile nell'ispirazione ai protocolli tipo BB84.
-- **Trascrizione di misura**: il testo viene permutato con una sequenza
-  deterministica generata dalla chiave.
-- **Integrita**: un tag HMAC rileva chiavi sbagliate o modifiche al token.
+```bash
+python3 quantum_cipher.py decrypt "TOKEN" --key "my-secret-key"
+```
 
-## Mini esempio in codice
+## Quantum Computing Inspiration
+
+- **Simulated qubits**: the mask is generated from streams called `raw-qubits`
+  and `phase-qubits`.
+- **Measurement bases**: each bit of the mask is selected through a
+  pseudo-random basis, loosely inspired by protocols such as BB84.
+- **Measurement transcript**: the text is permuted using a deterministic
+  sequence generated from the key.
+- **Integrity**: an HMAC tag detects wrong keys or modified tokens.
+
+## Mini Code Example
 
 ```python
 from quantum_cipher import QuantumInspiredCipher
 
-cipher = QuantumInspiredCipher("la-mia-chiave")
-token = cipher.encrypt("Ciao universo quantistico")
+cipher = QuantumInspiredCipher("my-secret-key")
+token = cipher.encrypt("Hello quantum universe")
 print(token)
 print(cipher.decrypt(token))
 ```
